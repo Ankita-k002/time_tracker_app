@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Tracker | Study Tracker & BigQuery Releases</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Orbitron:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-bolt-lightning"></i>
+                </div>
+                <h2>Time<span>Tracker</span></h2>
+            </div>
+            
+            <nav class="nav-menu">
+                <button class="nav-item active" data-tab="tab-study">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span>Study Tracker</span>
+                </button>
+                <button class="nav-item" data-tab="tab-releases">
+                    <i class="fa-solid fa-rss"></i>
+                    <span>BigQuery Feed</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="local-clock-card">
+                    <div class="clock-label">Local Time</div>
+                    <div id="local-digital-clock" class="local-clock">00:00:00</div>
+                    <div id="local-date" class="local-date">Friday, June 19, 2026</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Study Tracker Module -->
+            <section id="tab-study" class="tab-content active">
+                <header class="content-header">
+                    <div>
+                        <h1>Study Tracker</h1>
+                        <p class="subtitle">Focus, measure, and track your developer skill growth</p>
+                    </div>
+                </header>
+
+                <div class="dashboard-grid">
+                    <!-- Column 1: Active Study Session -->
+                    <div class="dashboard-card main-timer-card">
+                        <div class="card-header">
+                            <span class="card-status-badge id="timer-status"><i class="fa-solid fa-circle-pause"></i> Idle</span>
+                            <h3>Active Session</h3>
+                        </div>
+                        
+                        <div class="session-input-wrapper">
+                            <label for="session-title">What are you studying today?</label>
+                            <input type="text" id="session-title" placeholder="e.g., BigQuery Partitioning, Python Optimization..." autocomplete="off">
+                        </div>
+
+                        <div class="digital-timer-container">
+                            <div class="outer-glow-ring">
+                                <div id="session-timer" class="digital-timer">00:00:00</div>
+                            </div>
+                        </div>
+
+                        <div class="timer-controls">
+                            <button id="btn-start" class="btn btn-primary btn-glow">
+                                <i class="fa-solid fa-play"></i> Start Session
+                            </button>
+                            <button id="btn-pause" class="btn btn-secondary" disabled>
+                                <i class="fa-solid fa-pause"></i> Pause
+                            </button>
+                            <button id="btn-end" class="btn btn-danger" disabled>
+                                <i class="fa-solid fa-square"></i> End & Save
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Dashboard Analytics & Calendar Grid -->
+                    <div class="analytics-column">
+                        <div class="stats-row">
+                            <div class="stat-card">
+                                <div class="stat-icon text-primary"><i class="fa-solid fa-calendar-day"></i></div>
+                                <div class="stat-info">
+                                    <h4 id="stat-today">0h 0m</h4>
+                                    <p>Studied Today</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon text-accent"><i class="fa-solid fa-calendar-check"></i></div>
+                                <div class="stat-info">
+                                    <h4 id="stat-month">0h 0m</h4>
+                                    <p>This Month</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon text-success"><i class="fa-solid fa-graduation-cap"></i></div>
+                                <div class="stat-info">
+                                    <h4 id="stat-sessions">0</h4>
+                                    <p>Sessions Total</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Calendar Grid Card -->
+                        <div class="dashboard-card calendar-card">
+                            <div class="card-header">
+                                <div class="calendar-nav">
+                                    <button id="btn-prev-month"><i class="fa-solid fa-chevron-left"></i></button>
+                                    <h3 id="calendar-month-year">June 2026</h3>
+                                    <button id="btn-next-month"><i class="fa-solid fa-chevron-right"></i></button>
+                                </div>
+                                <p class="card-subtitle">Select a day to filter logs or view summary</p>
+                            </div>
+                            
+                            <div class="calendar-grid-container">
+                                <div class="weekdays-row">
+                                    <div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div>
+                                </div>
+                                <div id="calendar-days" class="days-grid"></div>
+                            </div>
+                            
+                            <div class="calendar-legend">
+                                <span>No study</span>
+                                <span class="legend-box level-0"></span>
+                                <span class="legend-box level-1"></span>
+                                <span class="legend-box level-2"></span>
+                                <span class="legend-box level-3"></span>
+                                <span>3h+ Study</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 3: Log History List -->
+                    <div class="dashboard-card history-card">
+                        <div class="card-header">
+                            <div class="history-header-actions">
+                                <h3>Session History</h3>
+                                <button id="btn-clear-filter" class="btn-clear-filter hidden">
+                                    Clear Day Filter <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                            <p id="history-filter-desc">All recorded sessions</p>
+                        </div>
+                        
+                        <div id="session-log-list" class="log-list">
+                            <!-- Populated dynamically -->
+                            <div class="empty-state">
+                                <i class="fa-solid fa-mug-hot"></i>
+                                <p>No study sessions recorded yet. Start one above!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BigQuery Releases Module -->
+            <section id="tab-releases" class="tab-content">
+                <header class="content-header">
+                    <div>
+                        <h1>BigQuery Release Notes</h1>
+                        <p class="subtitle">Stay updated with the latest features, enhancements, and deprecations in Google BigQuery</p>
+                    </div>
+                </header>
+
+                <div class="releases-controls">
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="releases-search" placeholder="Search releases (e.g. partitioned tables, JSON, API)...">
+                    </div>
+                    
+                    <div class="filter-badges">
+                        <button class="filter-badge active" data-filter="all">All Releases</button>
+                        <button class="filter-badge" data-filter="feature">Features</button>
+                        <button class="filter-badge" data-filter="announcement">Announcements</button>
+                        <button class="filter-badge" data-filter="fix">Fixes</button>
+                        <button class="filter-badge" data-filter="deprecation">Deprecations</button>
+                    </div>
+                </div>
+
+                <div id="releases-feed-container" class="releases-feed">
+                    <!-- Populated dynamically -->
+                    <div class="loading-state">
+                        <div class="spinner"></div>
+                        <p>Fetching BigQuery release notes...</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Alert toast mechanism for notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Custom JS -->
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
