@@ -1,8 +1,14 @@
 # Time Tracker & BigQuery Releases Dashboard
 
-A premium, modern web application designed for developer productivity. It features a persistent **Study Time Tracker** (equipped with digital stopwatches, monthly performance heatmaps, and SQL history logging) alongside a **Google Cloud BigQuery Release Notes Aggregator** (parsing XML feeds into searchable, categorized updates).
+A premium, modern web application designed for anyone who wants to track their study or work progress, keep a detailed record of their focus sessions, and stay organized. 
 
-The app is built using a dark-mode glassmorphic user interface utilizing plain vanilla HTML5, CSS3, and ES6 Javascript with a Python Flask backend.
+Alongside the tracker, the app includes a **Google Cloud BigQuery Release Notes Aggregator** (which parses Google's official XML release feed into a searchable, categorized updates grid). This integration lets users monitor cloud data updates in one dashboard while managing their learning sessions.
+
+---
+
+## 🎓 Course Project
+
+This web application was built using **Antigravity CLI** while attending the **Kaggle x Google: 5-Day AI Agents (Intensive Vibe Coding Course with Google)**.
 
 ---
 
